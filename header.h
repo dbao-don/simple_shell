@@ -20,5 +20,6 @@ extern char **environ;
 int run_shellvoid handle_interrupt(int signal_number);
 void handle_interrupt(int signal_number);
 void free_buf(char *s, int len, char *buffer, char *state);
-
+int check_exit(char *s);
+int to_int(char *str);
 #endif

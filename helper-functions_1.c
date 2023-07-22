@@ -36,3 +36,30 @@ void free_buf(char *s, int len, char *buffer, char *state)
 		exit(exitStatus);
 	}
 }
+
+/**
+* check_exit - Checks if the user input is an exit command
+* @s: User input as a string
+* Return: 1 if the input is an exit command, otherwise 0
+*/
+int check_exit(char *s)
+{
+	int i = 0, len = 0;
+	char *exit_str = "exit";
+
+	if (s == NULL)
+		return (-1);
+
+	while (s[i] != '\0')
+	{
+		if (s[i] == exit_str[i])
+			len++;
+		else
+			len = 0;
+		if (len > 3)
+			return (1);
+		i++;
+	}
+
+	return (0);
+}

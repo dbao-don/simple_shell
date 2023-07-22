@@ -32,7 +32,7 @@ int run_shell(char *argv[], char *envp[])
 	int input_length, is_exit_command = 0;
 	size_t buffer_size;
 
-	while(TRUE)
+	while (TRUE)
 	{
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, PROMPT, 5);
