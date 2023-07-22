@@ -23,5 +23,6 @@ void free_buf(char *s, int len, char *buffer, char *state);
 int execute_child(char *cmnd, char *arg[], char *buffer, char *av, char *env[]);
 int check_exit(char *s);
 int to_int(char *str);
-
+char *find_path(char **env, char *variable);
+int str_compare(char *str1, char *str2);
 #endif

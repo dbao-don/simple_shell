@@ -83,3 +83,30 @@ int execute_child(char *cmnd, char *arg[], char *buffer, char *av, char *env[])
 	search_path = find_path(environ, "PATH");
 	path = strtok(search_path, ":");
 }
+
+/**
+* find_path - Finds the value of an environment variable
+* @env: Array of environment variables
+* @variable: The variable name to search for
+* Return: The value of the environment variable if found, otherwise NULL
+*/
+char *find_path(char **env, char *variable)
+{
+	int index = 0;
+	char *value = NULL;
+
+	while (env[index] != NULL)
+	{
+		value = strtok(env[index], "=");
+		if (str_compare(value, variable) == 1)
+		{
+			value = strtok(NULL, "\n");
+			return (value);
+		}
+		index++;
+	}
+
+	write(STDOUT_FILENO, ERR_PATH, 18);
+
+	return (NULL);
+}

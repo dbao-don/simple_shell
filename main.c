@@ -60,7 +60,7 @@ int run_shell(char *argv[], char *envp[])
 		}
 
 		child_pid = fork();
-		If (child_pid == 0)
+		if (child_pid == 0)
 			execute_child(command, args, input_buffer, argv[0], envp);
 		else
 			wait(NULL);
