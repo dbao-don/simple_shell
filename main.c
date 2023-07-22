@@ -28,7 +28,7 @@ int main(int argc, char *argv[], char *envp[])
 int run_shell(char *argv[], char *envp[])
 {
 	char *args[] = {"/bin/sh", NULL, NULL, NULL};
-	char *input_buffer = NULL, command = NULL;
+	char *input_buffer = NULL, *command = NULL;
 	int input_length, is_exit_command = 0, child_pid = 0;
 	size_t buffer_size;
 
@@ -37,13 +37,13 @@ int run_shell(char *argv[], char *envp[])
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, PROMPT, 5);
 
-		signal(SIGNIT, handle_interrupt);
+		signal(SIGINT, handle_interrupt);
 		input_length = getline(&input_buffer, &buffer_size, stdin);
 
-		if (input_lenth == EOF)
+		if (input_length == EOF)
 		{
 			if (isatty(STDIN_FILENO))
-				free_buf("\n", 1, input_buffer, "1"0);
+				free_buf("\n", 1, input_buffer, "1");
 			exit(0);
 		}
 
@@ -61,7 +61,7 @@ int run_shell(char *argv[], char *envp[])
 
 		child_pid = fork();
 		if (child_pid == 0)
-			execute_child(command, args, input_buffer, argv[0], envp);
+			exec_child(command, args, input_buffer, argv[0], envp);
 		else
 			wait(NULL);
 	}

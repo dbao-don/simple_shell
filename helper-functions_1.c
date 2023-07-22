@@ -73,7 +73,7 @@ int check_exit(char *s)
 * @env: Array of environment variables
 * Return: Always returns 0
 */
-int execute_child(char *cmnd, char *arg[], char *buffer, char *av, char *env[])
+int exec_child(char *cmnd, char *arg[], char *buffer, char *av, char *env[])
 {
 	char *search_path, *path;
 
@@ -82,6 +82,20 @@ int execute_child(char *cmnd, char *arg[], char *buffer, char *av, char *env[])
 
 	search_path = find_path(environ, "PATH");
 	path = strtok(search_path, ":");
+
+	while (path)
+	{
+		path = construct_path(cmnd, path);
+		execve(path, arg, env);
+		path = strtok(NULL, ":\0");
+	}
+
+	write(STDOUT_FILENO, av, (str_length(av)));
+	write(STDOUT_FILENO, ": 1: ", 5);
+	write(STDOUT_FILENO, cmnd, (str_length(cmnd)));
+	free_buf(ERR_MSG, 12, buffer, NULL);
+
+	return (0);
 }
 
 /**
