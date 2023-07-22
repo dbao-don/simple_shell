@@ -63,3 +63,23 @@ int check_exit(char *s)
 
 	return (0);
 }
+
+/**
+* execute_child - Executes the command in the child process
+* @cmnd: The command to be executed
+* @arg: Array of arguments for the command
+* @buffer: Input buffer holding the user's input
+* @av: Name of the shell program
+* @env: Array of environment variables
+* Return: Always returns 0
+*/
+int execute_child(char *cmnd, char *arg[], char *buffer, char *av, char *env[])
+{
+	char *search_path, *path;
+
+	if (!cmnd)
+		free_buf(NULL, 0, buffer, "1");
+
+	search_path = find_path(environ, "PATH");
+	path = strtok(search_path, ":");
+}

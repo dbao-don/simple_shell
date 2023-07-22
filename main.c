@@ -29,7 +29,7 @@ int run_shell(char *argv[], char *envp[])
 {
 	char *args[] = {"/bin/sh", NULL, NULL, NULL};
 	char *input_buffer = NULL, command = NULL;
-	int input_length, is_exit_command = 0;
+	int input_length, is_exit_command = 0, child_pid = 0;
 	size_t buffer_size;
 
 	while (TRUE)
@@ -51,5 +51,18 @@ int run_shell(char *argv[], char *envp[])
 		args[1] = strtok(NULL, "\n ");
 		args[2] = strtok(NULL, "\n ");
 		is_exit_command = check_exit(input_buffer);
+
+		if (is_exit_command == TRUE)
+		{
+			if (args[1] == NULL)
+				args[1] = NULL;
+			free_buf(NULL, 0, input_buffer, args[1]);
+		}
+
+		child_pid = fork();
+		If (child_pid == 0)
+			execute_child(command, args, input_buffer, argv[0], envp);
+		else
+			wait(NULL);
 	}
 }

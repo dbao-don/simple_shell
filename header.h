@@ -20,6 +20,8 @@ extern char **environ;
 int run_shellvoid handle_interrupt(int signal_number);
 void handle_interrupt(int signal_number);
 void free_buf(char *s, int len, char *buffer, char *state);
+int execute_child(char *cmnd, char *arg[], char *buffer, char *av, char *env[]);
 int check_exit(char *s);
 int to_int(char *str);
+
 #endif
