@@ -19,4 +19,6 @@ extern char **environ;
 /* Function Prototypes */
 int run_shellvoid handle_interrupt(int signal_number);
 void handle_interrupt(int signal_number);
+void free_buf(char *s, int len, char *buffer, char *state);
+
 #endif

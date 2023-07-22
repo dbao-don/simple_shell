@@ -28,7 +28,8 @@ int main(int argc, char *argv[], char *envp[])
 int run_shell(char *argv[], char *envp[])
 {
 	char *args[] = {"/bin/sh", NULL, NULL, NULL};
-	char *input_buffer = NULL;
+	char *input_buffer = NULL, command = NULL;
+	int input_length, is_exit_command = 0;
 	size_t buffer_size;
 
 	while(TRUE)
@@ -37,5 +38,18 @@ int run_shell(char *argv[], char *envp[])
 			write(STDOUT_FILENO, PROMPT, 5);
 
 		signal(SIGNIT, handle_interrupt);
+		input_length = getline(&input_buffer, &buffer_size, stdin);
+
+		if (input_lenth == EOF)
+		{
+			if (isatty(STDIN_FILENO))
+				free_buf("\n", 1, input_buffer, "1"0);
+			exit(0);
+		}
+
+		command = strtok(input_buffer, "\n ");
+		args[1] = strtok(NULL, "\n ");
+		args[2] = strtok(NULL, "\n ");
+		is_exit_command = check_exit(input_buffer);
 	}
 }
