@@ -17,6 +17,6 @@
 extern char **environ;
 
 /* Function Prototypes */
-int run_shell(char *arg[], char *envp[]);
-
+int run_shellvoid handle_interrupt(int signal_number);
+void handle_interrupt(int signal_number);
 #endif
