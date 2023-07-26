@@ -1,34 +1,25 @@
-#ifndef HEADER_FILE
-#define HEADER_FILE
-
+#ifndef HEADER_H
+#define HEADER_H
+/* Function prototypes */
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/wait.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <errno.h>
-#include <signal.h>
-
-#define PROMPT "($) "
-#define TRUE 1
+#include <sys/wait.h>
+#define PROMPT "$ "
 #define ERR_MSG ": not found\n"
-#define ERR_PATH "Fail to find PATH\n"
-
-extern char **environ;
-
-/* Function Prototypes */
-int run_shell(char *argv[], char *envp[]);
-void handle_interrupt(int signal_number);
-void free_buf(char *s, int len, char *buffer, char *state);
-int exec_child(char *cmnd, char *arg[], char *buffer, char *av, char *env[]);
-int check_exit(char *s);
-int to_int(char *str);
-char *find_path(char **env, char *variable);
-int str_compare(char *str1, char *str2);
-char *construct_path(char *command, char *env);
-char *str_concat(char *dest, char *src);
-int str_length(char *s);
-
+#define ERR_PATH ": No such file or directory\n"
+#define NA_NO ": sh: 1: exit: Illegal number: "
+char **str_tokens(char *str);
+int create_fork(char *shell_name, char **tokens, char **env, int is_terminal);
+int check_exit(char **tokens, char *shell_name, char **env);
+char *get_path(char **env);
+char *split_path(char *file_token, char *path);
+int _strlen(char *s);
+int _strcmp(char *a, char *b);
+int _strncmp(const char *s1, const char *s2, size_t n);
+char *_strcpy(char *dest, char *src);
+char *_strcat(char *dest, char *src);
 #endif
